@@ -11,7 +11,7 @@ export default async function Home() {
         <body className={clsx(inter.className, "bg-background text-base")}>
             <main>
                 <NavBar />
-                <section className="grid grid-cols-4 gap-4 mx-12">
+                <section className="grid md:grid-cols-4 grid-cols-1 gap-4 mx-12">
                     {challenges.map((item) => (
                         <Card challenge={item} key={item} />
                     ))}

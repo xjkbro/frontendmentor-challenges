@@ -5,27 +5,27 @@ import Image from "next/image";
 
 export default function Card({ challenge }) {
     return (
-        <article className="bg-secondary p-4 rounded-md">
+        <article className="bg-secondary p-4 rounded-md flex flex-col justify-between">
             {/* <div className="w-full h-56 grid items-center justify-center bg-accent">
                 img
             </div> */}
-            <figure className="w-full h-56 grid items-center justify-center bg-accent mb-4">
+            <figure className="w-full h-56 grid items-center justify-center overflow-hidden bg-accent mb-4">
                 <Image
-                    src={"/" + challenge.image}
+                    src={challenge.image}
                     alt={challenge.title}
                     width={400}
                     height={400}
+                    className="h-fit  object-cover"
                 />
             </figure>
-            <div className="p-4">
+            <div className="p-4 min-h-[12rem] flex flex-col justify-around">
                 <h3 className="text-lg font-bold flex items-center">
-                    {challenge.title} <Badge type="complete" />
+                    {challenge.title} <Badge type={challenge.type} />
                 </h3>
                 <p className="text-sm mb-4 text-slate-400">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Officia rem ab iusto!
+                    {challenge.description}
                 </p>
-                <div className="flex justify-end gap-4">
+                <div className="flex flex-wrap justify-end gap-4">
                     <Link
                         href={challenge.demo}
                         className=" py-2 px-6 bg-primary rounded-md"

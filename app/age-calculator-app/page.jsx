@@ -35,7 +35,7 @@ export default function AgeCalculatorApp() {
         let calcYear = today.getFullYear() - givenDate.getFullYear();
         let calcMonth = today.getMonth() - givenDate.getMonth();
         let calcDay = today.getDate() - givenDate.getDate();
-        console.log(today.getMonth());
+        // console.log(today.getMonth());
         if (
             calcMonth < 0 ||
             (calcMonth === 0 && today.getDate() < givenDate.getDate())
@@ -43,6 +43,10 @@ export default function AgeCalculatorApp() {
             calcMonth = calcMonth + 12;
             calcYear--;
         }
+        // if (calcMonth > 0) {
+        //     calcYear++;
+        //     calcMonth = 0;
+        // }
         if (calcDay < 0) {
             calcDay = calcDay + 31;
             calcMonth--;
