@@ -12,6 +12,8 @@ export default function AgeCalculatorApp() {
     const [calcDate, setCalcDate] = useState(null);
     const [error, setError] = useState(false);
     const calculateAge = (e) => {
+        e.preventDefault();
+        console.log(day, month, year);
         if (
             !(
                 day > 0 &&
@@ -27,22 +29,27 @@ export default function AgeCalculatorApp() {
             return;
         }
 
-        e.preventDefault();
         const today = new Date();
         const givenDate = new Date(year, month, day);
 
         let calcYear = today.getFullYear() - givenDate.getFullYear();
         let calcMonth = today.getMonth() - givenDate.getMonth();
         let calcDay = today.getDate() - givenDate.getDate();
+        console.log(today.getMonth());
         if (
             calcMonth < 0 ||
             (calcMonth === 0 && today.getDate() < givenDate.getDate())
         ) {
+            calcMonth = calcMonth + 12;
             calcYear--;
+        }
+        if (calcDay < 0) {
+            calcDay = calcDay + 31;
+            calcMonth--;
         }
         const age = {
             year: calcYear,
-            month: calcMonth,
+            month: calcMonth + 1,
             day: calcDay,
         };
         setCalcDate(age);
@@ -52,10 +59,10 @@ export default function AgeCalculatorApp() {
             <section
                 className={
                     poppins.className +
-                    " bg-white h-1/2 w-1/2 p-12 mb-2 rounded-[1rem] rounded-br-[8rem]"
+                    " bg-white h-fit w-1/2 p-12 mb-2 rounded-[1rem] rounded-br-[8rem]"
                 }
             >
-                <div className="flex justify-between mb-8">
+                <div className="flex justify-between">
                     <div className="flex gap-8">
                         <div className="flex flex-col">
                             <label
@@ -82,16 +89,17 @@ export default function AgeCalculatorApp() {
                                 }
                                 onChange={(e) => setDay(e.target.value)}
                             />
-                            {error ? (
-                                <label
-                                    htmlFor="day"
-                                    className=" italic text-[#ff5757] text-sm my-2"
-                                >
-                                    Must be a valid day
-                                </label>
-                            ) : (
-                                <></>
-                            )}
+
+                            <label
+                                htmlFor="day"
+                                className={
+                                    error
+                                        ? " italic text-[#ff5757] text-sm my-2 visible"
+                                        : " italic text-[#ff5757] text-sm my-2 invisible"
+                                }
+                            >
+                                Must be a valid day
+                            </label>
                         </div>
                         <div className="flex flex-col">
                             <label
@@ -118,16 +126,16 @@ export default function AgeCalculatorApp() {
                                 }
                                 onChange={(e) => setMonth(e.target.value)}
                             />
-                            {error ? (
-                                <label
-                                    htmlFor="month"
-                                    className=" italic text-[#ff5757] text-sm my-2"
-                                >
-                                    Must be a valid month
-                                </label>
-                            ) : (
-                                <></>
-                            )}
+                            <label
+                                htmlFor="month"
+                                className={
+                                    error
+                                        ? " italic text-[#ff5757] text-sm my-2 visible"
+                                        : " italic text-[#ff5757] text-sm my-2 invisible"
+                                }
+                            >
+                                Must be a valid month
+                            </label>
                         </div>
                         <div className="flex flex-col">
                             <label
@@ -154,21 +162,21 @@ export default function AgeCalculatorApp() {
                                 }
                                 onChange={(e) => setYear(e.target.value)}
                             />
-                            {error ? (
-                                <label
-                                    htmlFor="year"
-                                    className=" italic text-[#ff5757] text-sm my-2"
-                                >
-                                    Must be a valid year
-                                </label>
-                            ) : (
-                                <></>
-                            )}
+                            <label
+                                htmlFor="year"
+                                className={
+                                    error
+                                        ? " italic text-[#ff5757] text-sm my-2 visible"
+                                        : " italic text-[#ff5757] text-sm my-2 invisible"
+                                }
+                            >
+                                Must be a valid year
+                            </label>
                         </div>
                     </div>
                     <button
                         onClick={calculateAge}
-                        className="h-20 w-20 bg-[#854dff] hover:bg-[#141414] translate-y-[5.2rem] text-white rounded-full"
+                        className="h-20 w-20 bg-[#854dff] hover:bg-[#141414] translate-y-full text-white rounded-full"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -177,29 +185,32 @@ export default function AgeCalculatorApp() {
                             className="w-12 h-12 mx-auto"
                             viewBox="0 0 46 44"
                         >
-                            <g fill="none" stroke="#FFF" stroke-width="2">
+                            <g fill="none" stroke="#FFF" strokeWidth="2">
                                 <path d="M1 22.019C8.333 21.686 23 25.616 23 44M23 44V0M45 22.019C37.667 21.686 23 25.616 23 44" />
                             </g>
                         </svg>
                     </button>
                 </div>
                 <hr />
-                <div className=" italic font-bold w-full mt-12">
+                <div className=" italic font-bold w-full my-12">
                     <p className="text-6xl">
                         <span className="text-[#854dff]">
-                            {calcDate != null ? Math.abs(calcDate.year) : "--"}
+                            {calcDate != null ? calcDate.year : "--"}
+                            {/* {calcDate != null ? Math.abs(calcDate.year) : "--"} */}
                         </span>{" "}
                         years
                     </p>
                     <p className="text-6xl">
                         <span className="text-[#854dff]">
-                            {calcDate != null ? Math.abs(calcDate.month) : "--"}
+                            {calcDate != null ? calcDate.month : "--"}
+                            {/* {calcDate != null ? Math.abs(calcDate.month) : "--"} */}
                         </span>{" "}
                         months
                     </p>
                     <p className="text-6xl">
                         <span className="text-[#854dff]">
-                            {calcDate != null ? Math.abs(calcDate.day) : "--"}
+                            {calcDate != null ? calcDate.day : "--"}
+                            {/* {calcDate != null ? Math.abs(calcDate.day) : "--"} */}
                         </span>{" "}
                         days
                     </p>

@@ -1,3 +1,6 @@
+import { NextResponse } from "next/server";
 export async function GET(request) {
-  return new Response('Hello, Next.js!')
+    return NextResponse.json({
+        data: [{ title: "Age Calculator App", challenge: "#", demo: "#" }],
+    });
 }
