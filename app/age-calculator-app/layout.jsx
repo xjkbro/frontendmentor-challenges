@@ -4,5 +4,5 @@ export const metadata = {
     description: "An Age Calculator App provided by Frontend Mentor",
 };
 export default function AgeLayout({ children }) {
-    return <body>{children}</body>;
+    return <>{children}</>;
 }
